@@ -11,7 +11,7 @@ from os.path import isfile, join
 import sklearn.datasets as sk
 
 #variables
-path='d:\\documents\\users\\nogahm\\Downloads\\testCorpus'
+path='D:\\documents\\users\\nogahm\\Downloads\\ohsumed-first-20000-docs\\testCorpus'
 dirpath=path
 trainDirs=[]
 testDirs=[]
@@ -90,9 +90,16 @@ for currClass in allClasses:
     #get terms distibution
     currFiles=docInfoDF.loc[docInfoDF['class']==currClass]
     termsFreq=pd.Series(" ".join(currFiles['cleanText']).split()).value_counts()[:10]
-    words_per_class.append([currClass] + termsFreq.index )
+    # termsFreqPerClass.append([currClass,zip(termsFreq.index,termsFreq)])
+    zipedFreq=zip(termsFreq.index, termsFreq)
+    zippedList=list(zipedFreq)
+    termsFreqPerClass.append([currClass]+zippedList)
 
-print(pd.DataFrame(words_per_class, columns=['Class'] + range(1,11)))
+# print number of files prt category
+numOfFilesDF=pd.DataFrame(numOfFiles,columns=['Class','#OfFiles'])
+print(numOfFilesDF)
+# print terms frequency
+pd.DataFrame(termsFreqPerClass, columns=['Class','term 1','term 2','term 3','term 4','term 5','term 6','term 7','term 8','term 9','term 10'])
 
 
 
