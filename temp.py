@@ -82,6 +82,7 @@ docInfoDF=pd.DataFrame(docsInfo, columns=['fileName','cleanText','class'])
 allClasses=np.unique(docInfoDF['class'])
 print ('# of categories: ',allClasses.size)
 numOfFiles=[]
+words_per_class = []
 termsFreqPerClass=[]
 for currClass in allClasses:
     temp=(docInfoDF['class']).value_counts()[currClass]
@@ -89,9 +90,9 @@ for currClass in allClasses:
     #get terms distibution
     currFiles=docInfoDF.loc[docInfoDF['class']==currClass]
     termsFreq=pd.Series(" ".join(currFiles['cleanText']).split()).value_counts()[:10]
-    termsFreqPerClass.append([currClass] + termsFreq.index)
+    words_per_class.append([currClass] + termsFreq.index )
 
-numOfFiles=pd.DataFrame(numOfFiles,columns=['class','#of docs'])
-print(numOfFiles)
-print(termsFreqPerClass)
+print(pd.DataFrame(words_per_class, columns=['Class'] + range(1,11)))
+
+
 
